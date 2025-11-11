@@ -77,13 +77,17 @@ def update_trees_in_database(radolan_grid, db_conn):
     ]
 
     with db_conn.cursor() as cur:
+        # Disable triggers
         try:
-            # Disable triggers
             logging.info(f"Disabling triggers: {', '.join(triggers_to_manage)}")
             for trigger in triggers_to_manage:
                 cur.execute(f"ALTER TABLE trees DISABLE TRIGGER {trigger};")
             db_conn.commit()
-
+        except Exception as e:
+            logging.error(f"Error disabling triggers: {e}")
+            db_conn.rollback()
+            return
+        try:
             # --- Start Pass 1 --- #
             logging.info(f"Updating trees in database (Pass 1/2)...")
             processed_count = 0
@@ -152,7 +156,7 @@ def cleanup_radolan_entries(limit_days, db_conn):
         limit_days (number): number of previous days to keep radolan data for
         db_conn (_type_): the database connection
     """
-    logging.info(f"Cleanup old and duplicated datat in database...")
+    logging.info(f"Cleanup old and duplicated data in database...")
     with db_conn.cursor() as cur:
         # Delete duplicated data
         cur.execute(

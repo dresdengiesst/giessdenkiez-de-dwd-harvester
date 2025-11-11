@@ -31,6 +31,7 @@ def upload_file_to_supabase_storage(
                 "Authorization": f"Bearer {supabaseServiceRoleKey}",
                 "ContentType": "application/geo+json",
                 "AcceptEncoding": "gzip, deflate, br",
+                "x-upsert": "true"
             },
         )
 

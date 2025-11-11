@@ -6,13 +6,13 @@ click-plugins==1.1.1
 cligj==0.7.2
 DateTime==5.4
 docutils==0.20.1
-Fiona==1.9.4.post1
-geopandas==0.14.3
+Fiona==1.10.1
+geopandas==0.14.4
 jmespath==1.0.1
 munch==4.0.0
 numpy==1.26.4
 pandas==2.2.0
-psycopg2==2.9.9
+psycopg2==2.9.10
 python-dateutil==2.8.2
 python-dotenv==1.0.1
 pytz==2024.1
